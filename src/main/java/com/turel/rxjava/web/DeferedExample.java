@@ -19,8 +19,6 @@ import org.springframework.web.context.request.async.DeferredResult;
 import rx.Observable;
 import rx.apache.http.ObservableHttp;
 
-import javax.annotation.PostConstruct;
-
 /**
  * Created by chaimturkel on 10/4/16.
  */

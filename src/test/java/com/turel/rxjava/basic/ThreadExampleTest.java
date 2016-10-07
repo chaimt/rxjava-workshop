@@ -1,5 +1,6 @@
 package com.turel.rxjava.basic;
 
+import org.junit.Assert;
 import org.junit.Test;
 import rx.observers.TestSubscriber;
 
@@ -31,7 +32,11 @@ public class ThreadExampleTest {
         TestSubscriber subscriber = new TestSubscriber<>();
 
         ThreadExample.subscriptionThread().subscribe(subscriber);
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<Integer> expected = new LinkedList<>();
         IntStream.range(1, 6).forEach(value -> expected.add(value*2));
 
@@ -47,6 +52,11 @@ public class ThreadExampleTest {
 
         ThreadExample.observerThread().subscribe(subscriber);
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<Integer> expected = new LinkedList<>();
         IntStream.range(1, 6).forEach(value -> expected.add(value*2));
 
@@ -62,10 +72,21 @@ public class ThreadExampleTest {
 
         ThreadExample.threadPerItem().subscribe(subscriber);
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         List<Integer> expected = new LinkedList<>();
         IntStream.range(1, 6).forEach(value -> expected.add(value*2));
 
-        subscriber.assertReceivedOnNext(expected);
+        //since it is multithreading we don't know the order
+        expected.stream().forEach(value -> {
+            final int i = subscriber.getOnNextEvents().indexOf(value);
+            Assert.assertNotEquals(-1,i);
+        });
+
         subscriber.assertNoErrors();
         subscriber.assertTerminalEvent();
 

@@ -50,12 +50,4 @@ public class DeferedExampleTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testSimpleDefered() throws Exception {
-        this.mockMvc.perform(get("/api/v1/example/post/simple")
-                .param("postId", "1"))
-                .andExpect(request().asyncStarted())
-                .andExpect(request().asyncResult(new ResponseEntity<>(new StatusDto("\"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\"",0), null, HttpStatus.OK)))
-                .andExpect(status().isOk());
-    }
 }

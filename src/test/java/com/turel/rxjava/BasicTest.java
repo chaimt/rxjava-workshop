@@ -3,7 +3,6 @@ package com.turel.rxjava;
 import com.turel.rxjava.basic.CreateObservableExample;
 import org.junit.Test;
 import rx.Observable;
-import rx.Subscription;
 import rx.observers.TestSubscriber;
 
 import java.util.LinkedList;
