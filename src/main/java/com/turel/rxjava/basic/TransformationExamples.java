@@ -23,7 +23,10 @@ public class TransformationExamples {
      */
     public static Observable<Integer> mapExample(){
         log.info("mapExample");
-        return Observable.empty();
+
+        return Observable.range(1, 5)
+                .map(i -> i * 2)
+                .map(i -> i * 10);
     }
 
     /**
@@ -36,7 +39,12 @@ public class TransformationExamples {
      */
     public static Observable<Integer> filterExample(){
         log.info("filterExample");
-        return Observable.empty();
+
+        return Observable.range(1, 5)
+                .filter(i -> i > 2)
+                .map(i -> i * 2)
+                .map(i -> i * 10)
+                .filter(i -> i < 100);
     }
 
     /**
@@ -48,7 +56,10 @@ public class TransformationExamples {
      */
     public static Observable<List<Integer>> toListExample(){
         log.info("listExample");
-        return Observable.empty();
+        return Observable.range(1, 5)
+                .map(i -> i * 2)
+                .map(i -> i * 10)
+                .toList();
     }
 
     /**
@@ -60,7 +71,10 @@ public class TransformationExamples {
      */
     public static Observable<Map<String, Integer>> toMapExample(){
         log.info("toMapExample");
-        return Observable.empty();
+        return Observable.range(1, 5)
+                .map(i -> i * 2)
+                .map(i -> i * 10)
+                .toMap(i -> "entry:" + i, i -> i);
     }
 
     /**
@@ -72,7 +86,10 @@ public class TransformationExamples {
      */
     public static Observable<Integer> countExample(){
         log.info("countExample");
-        return Observable.empty();
+        return Observable.range(1, 5)
+                .map(i -> i * 2)
+                .map(i -> i * 10)
+                .count();
     }
 
     /**
@@ -82,7 +99,8 @@ public class TransformationExamples {
      */
     public static Observable<Integer> flatMapExample(){
         log.info("flatMapExample");
-        return Observable.empty();
+        return Observable.range(1, 2)
+                .flatMap(i -> Observable.just(i*3,i*4));
     }
 
 
