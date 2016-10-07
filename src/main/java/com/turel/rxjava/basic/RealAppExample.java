@@ -31,6 +31,22 @@ public class RealAppExample {
 
         Observable<String> allRequests = Observable.concat(urlRequest1, urlRequest2, urlRequest3);
 
+        allRequests
+                .map(url -> Utils.getResponse(url))
+                .retry(2)
+                .filter(response -> response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+                .map(response -> jsonParser.parse(Utils.httpEntityToString(response.getEntity())))
+                .toList()
+                .subscribe(
+                        jsonElementList -> {
+                            log.info("********************************");
+                            for (JsonElement jsonElement : jsonElementList) {
+                                log.info("element - " + jsonElement.toString());
+                            }
+                        },
+                        error -> log.severe("error"),
+                        () -> log.info("completed")
+                );
 
         try {
             Thread.sleep(20000);
