@@ -14,6 +14,14 @@ import java.util.logging.Logger;
 public class RealAppExample {
     static Logger log = Logger.getLogger(RealAppExample.class.getCanonicalName());
 
+    /**
+     * combine all requests
+     * map them to requests using: Utils.getResponse(url)
+     * add a retry of 2 in case of network failure
+     * filer out all request that are not HttpStatus.SC_OK
+     * aggregate to list
+     * on subscribe print elements
+     */
     public static void realApp() {
         final JsonParser jsonParser = new JsonParser();
 
@@ -23,22 +31,6 @@ public class RealAppExample {
 
         Observable<String> allRequests = Observable.concat(urlRequest1, urlRequest2, urlRequest3);
 
-        allRequests
-                .map(url -> Utils.getResponse(url))
-                .retry(2)
-                .filter(response -> response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
-                .map(response -> jsonParser.parse(Utils.httpEntityToString(response.getEntity())))
-                .toList()
-                .subscribe(
-                        jsonElementList -> {
-                            log.info("********************************");
-                            for (JsonElement jsonElement : jsonElementList) {
-                                log.info("element - " + jsonElement.toString());
-                            }
-                        },
-                        error -> log.severe("error"),
-                        () -> log.info("completed")
-                );
 
         try {
             Thread.sleep(20000);

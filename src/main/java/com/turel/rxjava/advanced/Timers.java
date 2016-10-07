@@ -12,20 +12,13 @@ import java.util.logging.Logger;
 public class Timers {
     static Logger log = Logger.getLogger(Timers.class.getCanonicalName());
 
+    /**
+     * create Observable that emmits every 100 MILLISECONDS -> "Success " + input
+     *
+     * @return
+     */
     static public Observable<String> ticks() {
-        return Observable.interval(100, TimeUnit.MILLISECONDS)
-                .map(input ->  "Success " + input);
-    }
-
-    static public Observable<String> retryOnError() {
-        return Observable.interval(100, TimeUnit.MILLISECONDS)
-                .map(input -> {
-                    if (Math.random() < .5) {
-                        throw new RuntimeException();
-                    }
-                    return "Success " + input;
-                })
-                .retry(3);
+        return Observable.empty();
     }
 
     public static void main(String[] args) {

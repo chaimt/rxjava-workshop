@@ -20,7 +20,7 @@ public class ThreadExample {
      */
     public static Observable<Integer> noThread() {
         log.info("noThread");
-        return Observable.range(1, 5);
+        return Observable.empty();
     }
 
     /**
@@ -31,13 +31,7 @@ public class ThreadExample {
      */
     public static Observable<Integer> subscriptionThread() {
         log.info("subscriptionThread");
-
-        return Observable.range(1, 5)
-                .map(i -> {
-                    log.info("map:" + Thread.currentThread().getName() + " - " + i);
-                    return i * 2;
-                })
-                .subscribeOn(Schedulers.newThread());
+        return Observable.empty();
     }
 
     /**
@@ -50,14 +44,7 @@ public class ThreadExample {
      */
     public static Observable<Integer> observerThread() {
         log.info("observerThread");
-        return Observable.range(1, 5)
-                .map(i -> {
-                    log.info("map:" + Thread.currentThread().getName() + " - " + i);
-                    return i * 2;
-                })
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(Schedulers.computation());
-
+        return Observable.empty();
     }
 
 
@@ -72,15 +59,7 @@ public class ThreadExample {
      */
     public static Observable<Integer> threadPerItem() {
         log.info("threadPerItem");
-
-        return Observable.range(1, 5)
-                .flatMap(item -> Observable.just(item)
-                .observeOn(Schedulers.computation())
-                .map(i -> {
-                    log.info("map:" + Thread.currentThread().getName() + " - " + i);
-                    return i * 2;
-                }));
-
+        return Observable.empty();
     }
 
 
