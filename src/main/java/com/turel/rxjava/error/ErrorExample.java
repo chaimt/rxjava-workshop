@@ -25,7 +25,10 @@ public class ErrorExample {
      * @return
      */
     static public Observable<Object> onError() {
-        return Observable.empty();
+        return Observable.just("Hello!")
+                .map(input -> {
+                    throw new RuntimeException("my error");
+                });
     }
 
     private static String transform(String input) throws IOException {
@@ -38,7 +41,14 @@ public class ErrorExample {
      * @return
      */
     static public Observable<Object> propagateError() {
-        return Observable.empty();
+        return Observable.just("Hello!")
+                .map(input -> {
+                    try {
+                        return transform(input);
+                    } catch (Throwable t) {
+                        throw Exceptions.propagate(t);
+                    }
+                });
     }
 
     /**
@@ -47,7 +57,8 @@ public class ErrorExample {
      * @return
      */
     static public Observable<Integer> divisionError() {
-        return Observable.empty();
+        return Observable.just(1, 2, 0,3)
+                .map(v -> 100/v);
     }
 
     /**
@@ -57,7 +68,17 @@ public class ErrorExample {
      * @return
      */
     static public Observable<String> onErrorReturn() {
-        return Observable.empty();
+        return Observable.just("Hello!","bad","data")
+                .map(input -> {
+                    if (input.equals("bad")){
+                        throw new RuntimeException();
+                    }
+                    else{
+                        return input + ".";
+                    }
+
+                })
+                .onErrorReturn(error -> "Empty result");
     }
 
     /**
@@ -67,7 +88,17 @@ public class ErrorExample {
      * @return
      */
     static public Observable<String> onExceptionResumeNext() {
-        return Observable.empty();
+        return Observable.just("Hello!","bad","data")
+                .map(input -> {
+                    if (input.equals("bad")){
+                        throw new RuntimeException();
+                    }
+                    else{
+                        return input + ".";
+                    }
+
+                })
+                .onExceptionResumeNext(Observable.empty());
     }
 
     /**
@@ -78,7 +109,22 @@ public class ErrorExample {
      * @return
      */
     static public Observable<String> onErrorResumeNext() {
-        return Observable.empty();
+        return Observable.just("Hello!","bad","data")
+                .map(input -> {
+                    if (input.equals("bad")){
+                        throw new RuntimeException();
+                    }
+                    else{
+                        return input + ".";
+                    }
+
+                })
+                .onErrorResumeNext(error -> {
+                    if (error instanceof RuntimeException)
+                        return Observable.just("new","flow","go");
+                    else
+                        return Observable.just("new1","flow1","go1");
+                });
     }
 
 
