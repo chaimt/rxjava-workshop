@@ -22,7 +22,24 @@ public class ConsumerRX {
      * @return
      */
     public static <K, V> Observable create(KafkaConsumer<K, V> consumer, int pollTime) {
-        return Observable.empty();
+        return Observable.<V>create(subscriber -> {
+            logger.info("poll kafka consumer");
+            while (!subscriber.isUnsubscribed()) {
+                final ConsumerRecords<K, V> messages = consumer.poll(pollTime);
+                if (messages != null) {
+                    boolean errorFound = false;
+                    if (!errorFound) {
+                        for (ConsumerRecord<K, V> message : messages) {
+                            subscriber.onNext(message.value());
+                        }
+                    }
+                }
+            }
+            if (!subscriber.isUnsubscribed()) {
+                subscriber.onCompleted();
+            }
+            logger.info("end kafka consumer");
+        });
     }
 
 }
