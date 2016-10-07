@@ -19,6 +19,8 @@ import org.springframework.web.context.request.async.DeferredResult;
 import rx.Observable;
 import rx.apache.http.ObservableHttp;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Created by chaimturkel on 10/4/16.
  */
@@ -55,10 +57,50 @@ public class DeferedExample {
         final CloseableHttpAsyncClient httpClient = buildClient();
         httpClient.start();
 
-//        ObservableHttp.createGet("http://jsonplaceholder.typicode.com/posts/" + postId,httpClient).toObservable()
+        ObservableHttp.createGet("http://jsonplaceholder.typicode.com/posts/" + postId,httpClient).toObservable()
+                .doOnNext(observableHttpResponse -> {
+                    final StatusLine statusLine = observableHttpResponse.getResponse().getStatusLine();
+                    if (statusLine.getStatusCode()==200){
+                        String res = Utils.httpEntityToString(observableHttpResponse.getResponse().getEntity());
+                        JsonParser parser = new JsonParser();
+                        final JsonElement parse = parser.parse(res);
+                        final JsonElement title = parse.getAsJsonObject().get("title");
+                        result.setResult(getResponse(new StatusDto(title.toString(),0)));
+                    }
+                    else{
+                        result.setResult(getResponse(new StatusDto(statusLine.getReasonPhrase())));
+                    }
+                })
+                .doOnError(e -> {
+                    result.setResult(getResponse(new StatusDto(e.getMessage())));
+                })
+                .subscribe();
 
         return result;
     }
 
 
+    @RequestMapping(value="/post/simple", method= RequestMethod.GET)
+    public @ResponseBody Observable<StatusDto> getSimplePostSite(
+            @RequestParam Long postId
+    ) {
+        final CloseableHttpAsyncClient httpClient = buildClient();
+        httpClient.start();
+
+        return ObservableHttp.createGet("http://jsonplaceholder.typicode.com/posts/" + postId, httpClient)
+                .toObservable()
+                .map(observableHttpResponse -> {
+                    final StatusLine statusLine = observableHttpResponse.getResponse().getStatusLine();
+                    if (statusLine.getStatusCode() == 200) {
+                        String res = Utils.httpEntityToString(observableHttpResponse.getResponse().getEntity());
+                        JsonParser parser = new JsonParser();
+                        final JsonElement parse = parser.parse(res);
+                        final JsonElement title = parse.getAsJsonObject().get("title");
+                        return new StatusDto(title.toString(), 0);
+                    } else {
+                        return new StatusDto(statusLine.getReasonPhrase());
+                    }
+
+                });
+    }
 }
