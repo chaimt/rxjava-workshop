@@ -1,7 +1,5 @@
 package com.turel.rxjava.advanced;
 
-import com.turel.rxjava.error.ErrorExample;
-import org.junit.Assert;
 import org.junit.Test;
 import rx.observers.TestSubscriber;
 
