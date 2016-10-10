@@ -1,8 +1,11 @@
 package com.turel.rxjava.advanced;
 
+import com.turel.rxjava.error.ErrorExample;
+import org.junit.Assert;
 import org.junit.Test;
 import rx.observers.TestSubscriber;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -42,6 +45,18 @@ public class CombineExampleTest {
 
 
         subscriber.assertReceivedOnNext(expected);
+        subscriber.assertNoErrors();
+        subscriber.assertTerminalEvent();
+
+    }
+
+    @Test
+    public void zip(){
+        TestSubscriber subscriber = new TestSubscriber<>();
+
+        CombineExample.zip().subscribe(subscriber);
+
+        subscriber.assertReceivedOnNext(Arrays.asList("a-1","b-2","c-3","d-4"));
         subscriber.assertNoErrors();
         subscriber.assertTerminalEvent();
 

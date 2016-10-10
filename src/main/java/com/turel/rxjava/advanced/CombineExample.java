@@ -30,6 +30,17 @@ public class CombineExample {
         return Observable.empty();
     }
 
+    /**
+     * create two streams:
+     * one from range 1-4
+     * second from just a-d
+     * zip then to -> s + "-" + i
+     * @return
+     */
+    static public Observable<String> zip(){
+        return Observable.empty();
+    }
+
 
     public static void main(String[] args) {
         Utils.runWithSubscription(log,mergeWith());
