@@ -21,7 +21,7 @@ public class TimersExample {
      * @return
      */
     static public Observable<String> ticks(Scheduler scheduler) {
-        Observable.empty();
+        return Observable.empty();
     }
 
 
@@ -35,7 +35,7 @@ public class TimersExample {
      * @return
      */
     static public Observable<String> mergeFlows(Scheduler scheduler) {
-        Observable.empty();
+        return Observable.empty();
     }
 
 
