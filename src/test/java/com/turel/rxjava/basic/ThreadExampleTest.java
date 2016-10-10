@@ -67,6 +67,27 @@ public class ThreadExampleTest {
     }
 
     @Test
+    public void multipleObserveon(){
+        TestSubscriber subscriber = new TestSubscriber<>();
+
+        ThreadExample.multipleObserveon().subscribe(subscriber);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<Integer> expected = new LinkedList<>();
+        IntStream.range(1, 6).forEach(value -> expected.add(value*4));
+
+        subscriber.assertReceivedOnNext(expected);
+        subscriber.assertNoErrors();
+        subscriber.assertTerminalEvent();
+
+    }
+
+
+    @Test
     public void threadPerItem(){
         TestSubscriber subscriber = new TestSubscriber<>();
 
