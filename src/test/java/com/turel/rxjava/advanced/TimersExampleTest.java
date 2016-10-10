@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 /**
  * Created by chaimturkel on 10/10/16.
  */
-public class TimersTest {
+public class TimersExampleTest {
 
     @Test
     public void tick(){
