@@ -35,13 +35,18 @@ public class CombineExample {
         return Observable.merge(first,secound,third);
     }
 
-
-//    static public Observable<Integer> d(){
-//        final Observable<Integer> first = Observable.range(1, 10);
-//        final Observable<Integer> secound = Observable.range(20, 10);
-//        final Observable<Integer> integerObservable = first.ambWith(secound);
-//        return first.
-//    }
+    /**
+     * create two streams:
+     * one from range 1-4
+     * second from just a-d
+     * zip then to -> s + "-" + i
+     * @return
+     */
+    static public Observable<String> zip(){
+        final Observable<Integer> first = Observable.range(1, 4);
+        final Observable<String> secound = Observable.just("a","b","c","d");
+        return Observable.zip(first,secound,(i, s) -> s + "-" + i);
+    }
 
 
     public static void main(String[] args) {
