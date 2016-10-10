@@ -23,10 +23,7 @@ public class TransformationExamples {
      */
     public static Observable<Integer> mapExample(){
         log.info("mapExample");
-
-        return Observable.range(1, 5)
-                .map(i -> i * 2)
-                .map(i -> i * 10);
+        return Observable.empty();
     }
 
     /**
@@ -39,12 +36,7 @@ public class TransformationExamples {
      */
     public static Observable<Integer> filterExample(){
         log.info("filterExample");
-
-        return Observable.range(1, 5)
-                .filter(i -> i > 2)
-                .map(i -> i * 2)
-                .map(i -> i * 10)
-                .filter(i -> i < 100);
+        return Observable.empty();
     }
 
     /**
@@ -56,10 +48,7 @@ public class TransformationExamples {
      */
     public static Observable<List<Integer>> toListExample(){
         log.info("listExample");
-        return Observable.range(1, 5)
-                .map(i -> i * 2)
-                .map(i -> i * 10)
-                .toList();
+        return Observable.empty();
     }
 
     /**
@@ -71,10 +60,7 @@ public class TransformationExamples {
      */
     public static Observable<Map<String, Integer>> toMapExample(){
         log.info("toMapExample");
-        return Observable.range(1, 5)
-                .map(i -> i * 2)
-                .map(i -> i * 10)
-                .toMap(i -> "entry:" + i, i -> i);
+        return Observable.empty();
     }
 
     /**
@@ -86,10 +72,7 @@ public class TransformationExamples {
      */
     public static Observable<Integer> countExample(){
         log.info("countExample");
-        return Observable.range(1, 5)
-                .map(i -> i * 2)
-                .map(i -> i * 10)
-                .count();
+        return Observable.empty();
     }
 
     /**
@@ -99,8 +82,7 @@ public class TransformationExamples {
      */
     public static Observable<Integer> flatMapExample(){
         log.info("flatMapExample");
-         return Observable.range(1, 2)
-                .flatMap(i -> Observable.just(i*3,i*4));
+        return Observable.empty();
     }
 
 
