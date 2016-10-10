@@ -1,6 +1,6 @@
 package com.turel.rxjava;
 
-import com.turel.rxjava.advanced.Timers;
+import com.turel.rxjava.advanced.TimersExample;
 import com.turel.rxjava.basic.CreateObservableExample;
 import com.turel.rxjava.basic.ObserversExamples;
 import com.turel.rxjava.basic.ThreadExample;
@@ -42,7 +42,7 @@ public class AppTraining {
         // see ErrorExampleTest
 
         //advanced
-        Timers.main(args);
+        TimersExample.main(args);
 
         //Spring Web server
         //implement DeferedExample
