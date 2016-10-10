@@ -29,17 +29,6 @@ public class TimersExample {
     }
 
 
-    //    static public Observable<String> retryOnError() {
-//        return Observable.interval(100, TimeUnit.MILLISECONDS)
-//                .map(input -> {
-//                    if (Math.random() < .5) {
-//                        throw new RuntimeException();
-//                    }
-//                    return "Success " + input;
-//                })
-//                .retry(3);
-//    }
-
     public static void main(String[] args) {
         Utils.runWithSubscription(log, ticks(Schedulers.computation()),1000);
         Utils.runWithSubscription(log, mergeFlows(Schedulers.computation()),1000);
