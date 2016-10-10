@@ -15,13 +15,18 @@ public class TimersExample {
     static Logger log = Logger.getLogger(TimersExample.class.getCanonicalName());
 
     static public Observable<String> ticks(Scheduler scheduler) {
-        return Observable.empty();
+        return Observable.interval(100, TimeUnit.MILLISECONDS,scheduler)
+                .map(input ->  "Success " + input);
     }
 
 
     static public Observable<String> mergeFlows(Scheduler scheduler) {
-        return Observable.empty();    }
-
+        final Observable<String> first = Observable.interval(100, TimeUnit.MILLISECONDS,scheduler)
+                .map(input -> "yellow " + input);
+        final Observable<String> second = Observable.interval(100, TimeUnit.MILLISECONDS,scheduler)
+                .map(input -> "blue " + input);
+        return first.mergeWith(second);
+    }
 
     public static void main(String[] args) {
         Utils.runWithSubscription(log, ticks(Schedulers.computation()),1000);
