@@ -14,12 +14,27 @@ import java.util.logging.Logger;
 public class TimersExample {
     static Logger log = Logger.getLogger(TimersExample.class.getCanonicalName());
 
+    /**
+     * using interval, 100 every MILLISECONDS
+     * send text "Success " + input
+     * @param scheduler
+     * @return
+     */
     static public Observable<String> ticks(Scheduler scheduler) {
         return Observable.interval(100, TimeUnit.MILLISECONDS,scheduler)
                 .map(input ->  "Success " + input);
     }
 
 
+    /**
+     * create two flows:
+     * using interval, 100 every MILLISECONDS
+     * send text "yellow " + input
+     * * send text "blue " + input
+     * merge them
+     * @param scheduler
+     * @return
+     */
     static public Observable<String> mergeFlows(Scheduler scheduler) {
         final Observable<String> first = Observable.interval(100, TimeUnit.MILLISECONDS,scheduler)
                 .map(input -> "yellow " + input);
