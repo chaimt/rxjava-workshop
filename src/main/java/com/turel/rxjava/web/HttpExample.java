@@ -5,12 +5,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
-import org.apache.http.impl.nio.reactor.ExceptionEvent;
 import org.apache.http.nio.client.methods.HttpAsyncMethods;
 import org.apache.http.nio.protocol.HttpAsyncRequestProducer;
 import rx.Observable;
 import rx.apache.http.ObservableHttp;
-import rx.apache.http.ObservableHttpResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
