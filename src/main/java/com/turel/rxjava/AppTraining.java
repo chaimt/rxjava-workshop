@@ -8,6 +8,7 @@ import com.turel.rxjava.basic.ThreadExample;
 import com.turel.rxjava.basic.TransformationExamples;
 import com.turel.rxjava.error.ErrorExample;
 import com.turel.rxjava.iterable.LoopData;
+import com.turel.rxjava.web.HttpExample;
 
 /**
  * Created by chaimturkel on 9/30/16.
@@ -51,6 +52,7 @@ public class AppTraining {
         //Spring Web server
         //implement DeferedExample
         //see Application,DeferedExampleTest
+        HttpExample.main(args);
 
         //Kafka Consumer
 
