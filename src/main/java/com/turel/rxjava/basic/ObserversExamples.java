@@ -452,16 +452,16 @@ public class ObserversExamples {
     }
 
     public static void main(String[] args) {
-//        subscription();
-//        unsubscribe();
-//        multipleSubscription();
-//        multipleSubscriptionSingleRun();
-//        publishSubject();
-//        publishSubjectNotification();
-//        publishSubjectLateSubscription();
-//        replaySubject();
-//        replaySubjectWithTime();
-//        behaviorSubject();
+        subscription();
+        unsubscribe();
+        multipleSubscription();
+        multipleSubscriptionSingleRun();
+        publishSubject();
+        publishSubjectNotification();
+        publishSubjectLateSubscription();
+        replaySubject();
+        replaySubjectWithTime();
+        behaviorSubject();
         asyncSubject();
     }
 }
