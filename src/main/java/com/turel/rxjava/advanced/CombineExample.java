@@ -36,6 +36,49 @@ public class CombineExample {
     }
 
     /**
+     * create range from 1-5
+     * calulate the sum of them all
+     * @return
+     */
+    static public Observable<Integer> reduce(){
+        return Observable.range(1, 5)
+                .reduce((a, b) -> a+b);
+    }
+
+    /**
+     * create range from 1-5
+     * filter out so only one element is left and check if reduce works
+     * @return
+     */
+    static public Observable<Integer> reduceOne(){
+        return Observable.range(1, 5)
+                .filter(a -> a>4)
+                .reduce((a, b) -> a+b);
+    }
+
+    /**
+     * create range from 1-5
+     * filter out all elements and check if reduce works
+     * @return
+     */
+    static public Observable<Integer> reduceNull(){
+        return Observable.range(1, 5)
+                .filter(a -> a>5)
+                .reduce((a, b) -> a+b);
+    }
+
+    /**
+     * create range from 1-5
+     * filter out all elements and map to 0 with no error
+     * @return
+     */
+    static public Observable<Integer> reduceNullToZero(){
+        return Observable.range(1, 5)
+                .filter(a -> a>5)
+                .reduce(0,(a, b) -> a+b);
+    }
+
+    /**
      * create two streams:
      * one from range 1-4
      * second from just a-d
