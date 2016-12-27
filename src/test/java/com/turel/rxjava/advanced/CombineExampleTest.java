@@ -1,6 +1,5 @@
 package com.turel.rxjava.advanced;
 
-import com.turel.rxjava.error.ErrorExample;
 import org.junit.Assert;
 import org.junit.Test;
 import rx.observers.TestSubscriber;
@@ -50,6 +49,52 @@ public class CombineExampleTest {
 
     }
 
+    @Test
+    public void reduce(){
+        TestSubscriber subscriber = new TestSubscriber<>();
+
+        CombineExample.reduce().subscribe(subscriber);
+
+        subscriber.assertReceivedOnNext(Arrays.asList(15));
+        subscriber.assertNoErrors();
+        subscriber.assertTerminalEvent();
+    }
+
+    @Test
+    public void reduceOne(){
+        TestSubscriber subscriber = new TestSubscriber<>();
+
+        CombineExample.reduceOne().subscribe(subscriber);
+
+        subscriber.assertReceivedOnNext(Arrays.asList(5));
+        subscriber.assertNoErrors();
+        subscriber.assertTerminalEvent();
+
+    }
+
+    @Test
+    public void reduceNull(){
+        TestSubscriber subscriber = new TestSubscriber<>();
+
+        CombineExample.reduceNull().subscribe(subscriber);
+
+        subscriber.assertReceivedOnNext(Arrays.asList());
+        Assert.assertEquals(1,subscriber.getOnErrorEvents().size());
+        subscriber.assertTerminalEvent();
+
+    }
+
+    @Test
+    public void reduceNullToZero(){
+        TestSubscriber subscriber = new TestSubscriber<>();
+
+        CombineExample.reduceNullToZero().subscribe(subscriber);
+
+        subscriber.assertReceivedOnNext(Arrays.asList(0));
+        subscriber.assertNoErrors();
+        subscriber.assertTerminalEvent();
+
+    }
     @Test
     public void zip(){
         TestSubscriber subscriber = new TestSubscriber<>();
