@@ -127,6 +127,20 @@ public class ErrorExample {
                 });
     }
 
+    static public Observable<String> mergerDelayError() {
+        Observable<String> just = Observable.just("Hello!", "bad", "data");
+        return Observable.just("Hello!","bad","data")
+                .map(input -> {
+                    if (input.equals("bad")){
+                        throw new RuntimeException();
+                    }
+                    else{
+                        return input + ".";
+                    }
+
+                })
+                .mergeDelayError(Observable.empty());
+    }
 
 
     public static void main(String[] args) {
@@ -134,6 +148,7 @@ public class ErrorExample {
         Utils.runWithSubscription(log, propagateError());
         Utils.runWithSubscription(log, onErrorReturn());
         Utils.runWithSubscription(log, divisionError());
+        Utils.runWithSubscription(log, mergerDelayError());
     }
 
 
